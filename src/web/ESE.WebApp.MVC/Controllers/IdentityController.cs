@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace ESE.WebApp.MVC.Controllers
 {
 
-    public class IdentityController : Controller
+    public class IdentityController : MainController
     {
 
         private readonly IAutenticatedService _autenticatedService;
@@ -35,7 +35,7 @@ namespace ESE.WebApp.MVC.Controllers
             // API - Register
             var response = await _autenticatedService.Register(userRegister);
 
-            //if (false) return View(userRegister);
+            if (ResponseHasErrors(response.ResponseResult)) return View(userRegister);
 
             // Realizar Registro na app
             await ConnectLogin(response);
@@ -60,7 +60,7 @@ namespace ESE.WebApp.MVC.Controllers
             // API - Register
             var response = await _autenticatedService.Login(userLogin);
 
-            //if (false) return View(userLogin);
+            if (ResponseHasErrors(response.ResponseResult)) return View(userLogin);
 
             // Realizar Login na app
             await ConnectLogin(response);
@@ -70,8 +70,9 @@ namespace ESE.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("sair")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 

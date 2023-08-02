@@ -1,7 +1,7 @@
-﻿@model ESE.WebApp.MVC.Models.UserRegister
+﻿@model ESE.WebApp.MVC.Models.UserLogin
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Login";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -11,6 +11,7 @@
             <form method="post">
                 <h4>Seja bem vindo e boas compras!</h4>
                 <hr />
+                <vc:summary></vc:summary>
                 <div class="form-group">
                     <label asp-for="Email"></label>
                     <input asp-for="Email" class="form-control" />

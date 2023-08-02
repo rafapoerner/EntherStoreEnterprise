@@ -32,6 +32,7 @@ namespace ESE.WebApp.MVC.Models
         public string AccessToken { get; set; }
         public double ExpireIn { get; set; }
         public UserToken UserToken { get; set; }
+        public ResponseResult ResponseResult { get; set; }
     }
 
     public class UserToken

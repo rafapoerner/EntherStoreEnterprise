@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace ESE.WebApp.MVC.Services
 {
-    public class AutenticatedService : IAutenticatedService
+    public class AutenticatedService : Service, IAutenticatedService
     {
         private readonly HttpClient _httpClient;
 
@@ -20,12 +20,24 @@ namespace ESE.WebApp.MVC.Services
                 Encoding.UTF8,
                 "application/json");
 
+
             var response = await _httpClient.PostAsync("https://localhost:44336/api/identity/autenticated", loginContent);
 
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
+
+            var teste = await response.Content.ReadAsStringAsync();
+
+            if (!HandleResponseErrors(response))
+            {
+                return new UserResponseLogin
+                {
+                    ResponseResult = 
+                    JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }
 
             return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync(), options);
         }
@@ -39,7 +51,21 @@ namespace ESE.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:44336/api/identity/new-account", registerContent);
 
-            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync());
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+            if (!HandleResponseErrors(response))
+            {
+                return new UserResponseLogin
+                {
+                    ResponseResult =
+                    JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }
+
+            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync(), options);
         }
     }
 }
