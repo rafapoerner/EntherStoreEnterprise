@@ -30,6 +30,8 @@ namespace ESE.Identity.API.Controllers
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(UserRegister userRegister)
         {
+            //return new StatusCodeResult(500);
+
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser

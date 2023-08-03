@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using ESE.WebApp.MVC.Extensions;
 
 namespace ESE.WebApp.MVC.Configuration
 {
@@ -11,6 +11,19 @@ namespace ESE.WebApp.MVC.Configuration
 
         public static void UseMvcConfig(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+
+            //}
+
+            app.UseExceptionHandler("/erro/500");
+            app.UseStatusCodePagesWithRedirects("/erro/{0}");
+            app.UseHsts();
+
 
 
             app.UseHttpsRedirection();
@@ -19,6 +32,8 @@ namespace ESE.WebApp.MVC.Configuration
             app.UseRouting();
 
             app.UseIdentityConfig();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

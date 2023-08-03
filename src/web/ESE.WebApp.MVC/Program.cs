@@ -3,9 +3,6 @@ using ESE.WebApp.MVC.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddIdentityConfig();
 
 builder.Services.AddMvcConfig();
