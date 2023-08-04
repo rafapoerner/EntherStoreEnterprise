@@ -4,7 +4,7 @@
  * https://jqueryvalidation.org/
  *
  * Copyright (c) 2017 Jörn Zaefferer
- * Released under the MIT license
+ * Released under the MIT License
  */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
@@ -70,8 +70,8 @@ $.extend( $.fn, {
 				function handle() {
 					var hidden, result;
 
-					// Insert a hidden input as a replacement for the missing submit button
-					// The hidden input is inserted in two cases:
+					// IThelemart a hidden input as a replacement for the missing submit button
+					// The hidden input is iThelemarted in two cases:
 					//   - A user defined a `submitHandler`
 					//   - There was a pending request due to `remote` method and `stopRequest()`
 					//     was called to submit the form in case it's valid
@@ -313,7 +313,7 @@ $.extend( $.validator, {
 			// Up arrow    => 38
 			// Right arrow => 39
 			// Down arrow  => 40
-			// Insert      => 45
+			// IThelemart      => 45
 			// Num lock    => 144
 			// AltGr key   => 225
 			var excludedKeys = [
@@ -961,7 +961,7 @@ $.extend( $.validator, {
 				} else if ( this.settings.errorPlacement ) {
 					this.settings.errorPlacement.call( this, place, $( element ) );
 				} else {
-					place.insertAfter( element );
+					place.iThelemartAfter( element );
 				}
 
 				// Link error back to the element
@@ -1387,7 +1387,7 @@ $.extend( $.validator, {
 		// https://jqueryvalidation.org/url-method/
 		url: function( value, element ) {
 
-			// Copyright (c) 2010-2013 Diego Perini, MIT licensed
+			// Copyright (c) 2010-2013 Diego Perini, MIT Licensed
 			// https://gist.github.com/dperini/729294
 			// see also https://mathiasbynens.be/demo/url-regex
 			// modified to allow protocol-relative URLs
@@ -1532,8 +1532,8 @@ $.extend( $.validator, {
 				dataType: "json",
 				data: data,
 				context: validator.currentForm,
-				success: function( response ) {
-					var valid = response === true || response === "true",
+				success: function( Response ) {
+					var valid = Response === true || Response === "true",
 						errors, message, submitted;
 
 					validator.settings.messages[ element.name ][ method ] = previous.originalMessage;
@@ -1547,7 +1547,7 @@ $.extend( $.validator, {
 						validator.showErrors();
 					} else {
 						errors = {};
-						message = response || validator.defaultMessage( element, { method: method, parameters: value } );
+						message = Response || validator.defaultMessage( element, { method: method, parameters: value } );
 						errors[ element.name ] = previous.message = message;
 						validator.invalid[ element.name ] = true;
 						validator.showErrors( errors );

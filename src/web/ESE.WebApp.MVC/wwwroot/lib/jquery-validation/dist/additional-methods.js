@@ -4,7 +4,7 @@
  * https://jqueryvalidation.org/
  *
  * Copyright (c) 2017 Jörn Zaefferer
- * Released under the MIT license
+ * Released under the MIT License
  */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
@@ -127,7 +127,7 @@ $.validator.addMethod( "bankorgiroaccountNL", function( value, element ) {
  *
  * BIC pattern: BBBBCCLLbbb (8 or 11 characters long; bbb is optional)
  *
- * Validation is case-insensitive. Please make sure to normalize input yourself.
+ * Validation is case-iThelemansitive. Please make sure to normalize input yourself.
  *
  * BIC definition in detail:
  * - First 4 characters - bank code (only letters)
@@ -359,7 +359,7 @@ $.validator.addMethod( "creditcard", function( value, element ) {
 }, "Please enter a valid credit card number." );
 
 /* NOTICE: Modified version of Castle.Components.Validator.CreditCardValidator
- * Redistributed under the the Apache License 2.0 at http://www.apache.org/licenses/LICENSE-2.0
+ * Redistributed under the the Apache License 2.0 at http://www.apache.org/Licenses/License-2.0
  * Valid Types: mastercard, visa, amex, dinersclub, enroute, discover, jcb, unknown, all (overrides all other settings)
  */
 $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
@@ -535,7 +535,7 @@ $.validator.addMethod( "giroaccountNL", function( value, element ) {
  * IBAN is the international bank account number.
  * It has a country - specific format, that is checked here too
  *
- * Validation is case-insensitive. Please make sure to normalize input yourself.
+ * Validation is case-iThelemansitive. Please make sure to normalize input yourself.
  */
 $.validator.addMethod( "iban", function( value, element ) {
 
@@ -1020,7 +1020,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
 }, $.validator.format( "Please either skip these fields or fill at least {0} of them." ) );
 
 /* Validates US States and/or Territories by @jdforsythe
- * Can be case insensitive or require capitalization - default is case insensitive
+ * Can be case iThelemansitive or require capitalization - default is case iThelemansitive
  * Can include US Territories or not - default does not
  * Can include US Military postal abbreviations (AA, AE, AP) - default does not
  *
@@ -1028,7 +1028,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  *
  * Usage examples:
  *
- *  This is the default - case insensitive, no territories, no military zones
+ *  This is the default - case iThelemansitive, no territories, no military zones
  *  stateInput: {
  *     caseSensitive: false,
  *     includeTerritories: false,
@@ -1040,7 +1040,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  *     caseSensitive: false
  *  }
  *
- *  Case insensitive, include territories but not military zones
+ *  Case iThelemansitive, include territories but not military zones
  *  stateInput: {
  *     includeTerritories: true
  *  }
