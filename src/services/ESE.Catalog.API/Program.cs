@@ -1,28 +1,29 @@
-using ESE.Catalog.API.Data;
-using ESE.Catalog.API.Data.Respository;
-using ESE.Catalog.API.Models;
-using Microsoft.EntityFrameworkCore;
+using ESE.Catalog.API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<CatalogContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Configuration.SetBasePath(builder.Environment.ContentRootPath);
+builder.Configuration.AddJsonFile("appsettings.json", true, true);
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true);
+builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<CatalogContext>();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
+builder.Services.AddApiConfig(builder.Configuration);
+
+builder.Services.AddSwaggerConfiguration();
+
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseSwaggerConfiguration();
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseApiConfig(app.Environment);
 
 app.Run();
