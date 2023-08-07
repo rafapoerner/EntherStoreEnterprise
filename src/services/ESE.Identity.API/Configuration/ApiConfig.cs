@@ -1,4 +1,6 @@
-﻿namespace ESE.Identity.API.Configuration
+﻿using ESE.WebApi.Core.Identity;
+
+namespace ESE.Identity.API.Configuration
 {
     public static class ApiConfig
     {
@@ -20,7 +22,9 @@
 
             app.UseRouting();
 
-            app.UseIdentityConfiguration();
+            app.UseAuthConfiguration();
+
+            app.UseRouting();
 
             return app;
         }

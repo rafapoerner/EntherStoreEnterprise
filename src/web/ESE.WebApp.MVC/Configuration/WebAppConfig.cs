@@ -26,8 +26,6 @@ namespace ESE.WebApp.MVC.Configuration
             app.UseStatusCodePagesWithRedirects("/erro/{0}");
             app.UseHsts();
 
-
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -41,7 +39,7 @@ namespace ESE.WebApp.MVC.Configuration
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Catalog}/{action=Index}/{id?}");
             });
         }
     }

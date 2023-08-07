@@ -1,6 +1,7 @@
 ﻿using ESE.Catalog.API.Data;
 using ESE.Catalog.API.Data.Respository;
 using ESE.Catalog.API.Models;
+using ESE.WebApi.Core.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ESE.Catalog.API.Configuration
@@ -23,19 +24,9 @@ namespace ESE.Catalog.API.Configuration
                     .AllowAnyHeader());
             });
 
-
-            services.AddDbContext<CatalogContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
-
-
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<CatalogContext>();
-
         }
 
-        public static IApplicationBuilder UseApiConfig(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static void UseApiConfig(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -43,18 +34,16 @@ namespace ESE.Catalog.API.Configuration
             }
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
             app.UseRouting();
 
             app.UseCors("Total");
+
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            return app;
         }
     }
 }

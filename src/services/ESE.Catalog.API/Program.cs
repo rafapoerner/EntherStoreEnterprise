@@ -1,4 +1,5 @@
 using ESE.Catalog.API.Configuration;
+using ESE.WebApi.Core.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +17,12 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddApiConfig(builder.Configuration);
 
+builder.Services.AddJwtConfiguration(builder.Configuration);
+
 builder.Services.AddSwaggerConfiguration();
 
 builder.Services.RegisterServices();
+
 
 var app = builder.Build();
 

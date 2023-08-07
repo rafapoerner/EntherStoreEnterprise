@@ -9,6 +9,8 @@ namespace ESE.Identity.API.Configuration
         {
             services.AddHttpClient<IAutenticatedService, AutenticatedService>();
 
+            services.AddHttpClient<ICatalogService, CatalogService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IUser, AspNetUser>();

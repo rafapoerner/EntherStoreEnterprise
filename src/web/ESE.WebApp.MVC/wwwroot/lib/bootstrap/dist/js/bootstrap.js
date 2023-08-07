@@ -1,7 +1,7 @@
 /*!
   * Bootstrap v4.3.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/License)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
@@ -71,7 +71,7 @@
   /**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): util.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/License)
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
   /**
@@ -2613,7 +2613,7 @@
   /**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): tools/sanitizer.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/License)
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
   var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
@@ -2795,7 +2795,7 @@
     HIDDEN: "hidden" + EVENT_KEY$6,
     SHOW: "show" + EVENT_KEY$6,
     SHOWN: "shown" + EVENT_KEY$6,
-    IThelemaRTED: "iThelemarted" + EVENT_KEY$6,
+    INSERTED: "inserted" + EVENT_KEY$6,
     CLICK: "click" + EVENT_KEY$6,
     FOCUSIN: "focusin" + EVENT_KEY$6,
     FOCUSOUT: "focusout" + EVENT_KEY$6,
@@ -2965,7 +2965,7 @@
           $(tip).appendTo(container);
         }
 
-        $(this.element).trigger(this.constructor.Event.IThelemaRTED);
+        $(this.element).trigger(this.constructor.Event.INSERTED);
         this._popper = new Popper(this.element, tip, {
           placement: attachment,
           modifiers: {
@@ -3486,7 +3486,7 @@
     HIDDEN: "hidden" + EVENT_KEY$7,
     SHOW: "show" + EVENT_KEY$7,
     SHOWN: "shown" + EVENT_KEY$7,
-    IThelemaRTED: "iThelemarted" + EVENT_KEY$7,
+    INSERTED: "inserted" + EVENT_KEY$7,
     CLICK: "click" + EVENT_KEY$7,
     FOCUSIN: "focusin" + EVENT_KEY$7,
     FOCUSOUT: "focusout" + EVENT_KEY$7,
@@ -4395,7 +4395,7 @@
   /**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): index.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/License)
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
 
