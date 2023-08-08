@@ -17,15 +17,6 @@ namespace ESE.WebApp.MVC.Services
 
         }
 
-        public async Task<IEnumerable<ProductViewModel>> GetAllProducts()
-        {
-            var response = await _httpClient.GetAsync("/catalog/products/");
-
-            HandleResponseErrors(response);
-
-            return await DeserializeObjectResponse<IEnumerable<ProductViewModel>>(response);
-        }
-
         public async Task<ProductViewModel> GetProductsById(Guid id)
         {
             var response = await _httpClient.GetAsync($"/catalog/products/{id}");
@@ -33,6 +24,15 @@ namespace ESE.WebApp.MVC.Services
             HandleResponseErrors(response);
 
             return await DeserializeObjectResponse<ProductViewModel>(response);
+        }
+
+        public async Task<IEnumerable<ProductViewModel>> GetAllProducts()
+        {
+            var response = await _httpClient.GetAsync("/catalog/products/");
+
+            HandleResponseErrors(response);
+
+            return await DeserializeObjectResponse<IEnumerable<ProductViewModel>>(response);
         }
     }
 }

@@ -23,8 +23,8 @@ namespace ESE.WebApp.MVC.Controllers
         }
 
         [HttpGet]
-        [Route("product-detail/{id}")]
-        public async Task<IActionResult> ProductDetail(Guid id)
+        [Route("product-details/{id}")]
+        public async Task<IActionResult> ProductDetails(Guid id)
         {
             var product = await _catalogService.GetProductsById(id);
 

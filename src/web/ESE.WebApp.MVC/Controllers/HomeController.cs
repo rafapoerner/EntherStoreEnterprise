@@ -23,7 +23,7 @@ namespace ESE.WebApp.MVC.Controllers
 
             if(id == 500)
             {
-                modelError.Mensagem = "Ocorreu um erro! Tente novamente mais tarde ou entre em contato com nosso suporte.";
+                modelError.Mensagem = "Ocorreu um erro! Tente novamente mais tarde ou entre em contato com nosso suporte(ERRO 500).";
                 modelError.Titulo = "Ocorreu um erro!";
                 modelError.ErroCode = id;
             }
