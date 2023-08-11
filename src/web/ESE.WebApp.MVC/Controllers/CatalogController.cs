@@ -26,6 +26,7 @@ namespace ESE.WebApp.MVC.Controllers
         [Route("product-details/{id}")]
         public async Task<IActionResult> ProductDetails(Guid id)
         {
+
             var product = await _catalogService.GetProductsById(id);
 
             return View(product);

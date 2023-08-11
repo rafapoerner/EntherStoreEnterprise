@@ -19,7 +19,7 @@ builder.Services.AddIdentityConfig();
 
 builder.Services.AddMvcConfig(builder.Configuration);
 
-builder.Services.RegisterServices();
+builder.Services.RegisterServices(builder.Configuration);
 
 
 var app = builder.Build();

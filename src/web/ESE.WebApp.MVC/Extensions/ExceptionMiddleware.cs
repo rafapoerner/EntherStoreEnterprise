@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Polly.CircuitBreaker;
+using Refit;
 using System.Net;
 
 namespace ESE.WebApp.MVC.Extensions
@@ -21,18 +23,35 @@ namespace ESE.WebApp.MVC.Extensions
             catch (CustomHttpRequestException ex)
             {
 
-                HandleRequestExceptionAsync(httpContext, ex);
+                HandleRequestExceptionAsync(httpContext, ex.StatusCode);
+            }
+            catch(ValidationApiException  ex)
+            {
+                HandleRequestExceptionAsync(httpContext, ex.StatusCode);
+            }
+            catch (ApiException ex) 
+            {
+                HandleRequestExceptionAsync(httpContext, ex.StatusCode);
+            }
+            catch (BrokenCircuitException) 
+            {
+                HandleCircuitBreakerExceptionAsync(httpContext);
             }
         }
 
-        private static void HandleRequestExceptionAsync(HttpContext context, CustomHttpRequestException httpRequestException) 
+        private static void HandleRequestExceptionAsync(HttpContext context, HttpStatusCode statusCodes) 
         {
-            if(httpRequestException.StatusCode == HttpStatusCode.Unauthorized)
+            if(statusCodes == HttpStatusCode.Unauthorized)
             {
                 context.Response.Redirect($"/login?ReturnUrl={context.Request.Path}"); // O Redirect não interrompe o processo, por isso a necessidade do return.
                 return;
             }
-            context.Response.StatusCode = (int)httpRequestException.StatusCode;
+            context.Response.StatusCode = (int)statusCodes;
+        }
+
+        private static void HandleCircuitBreakerExceptionAsync(HttpContext context) 
+        {
+            context.Response.Redirect("/sistema-indisponivel");
         }
     }
 }

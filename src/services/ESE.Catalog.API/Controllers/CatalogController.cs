@@ -28,9 +28,9 @@ namespace ESE.Catalog.API.Controllers
         [HttpGet("catalog/products/{id}")]
         public async Task<Product> ProductDetail(Guid id)
         {
+
+            throw new Exception("Erro!");
             return await _productRepository.GetById(id);
         }
-
-
     }
 }
