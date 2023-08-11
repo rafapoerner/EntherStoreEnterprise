@@ -23,13 +23,12 @@ namespace ESE.Catalog.API.Controllers
             return await _productRepository.GetAll();
         }
 
-        
+
         [ClaimsAuthorize("Catalog", "Read")]
         [HttpGet("catalog/products/{id}")]
         public async Task<Product> ProductDetail(Guid id)
         {
-
-            throw new Exception("Erro!");
+            //throw new Exception("Erro!");
             return await _productRepository.GetById(id);
         }
     }

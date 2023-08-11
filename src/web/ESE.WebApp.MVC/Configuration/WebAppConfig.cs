@@ -1,4 +1,6 @@
 ﻿using ESE.WebApp.MVC.Extensions;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace ESE.WebApp.MVC.Configuration
 {
@@ -32,6 +34,14 @@ namespace ESE.WebApp.MVC.Configuration
             app.UseRouting();
 
             app.UseIdentityConfig();
+
+            var supportedCulture = new[] { new CultureInfo("pt-BR") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-BR"),
+                SupportedCultures = supportedCulture,
+                SupportedUICultures = supportedCulture,
+            });
 
             app.UseMiddleware<ExceptionMiddleware>();
 
