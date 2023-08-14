@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Payment.API", "src\serv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E523C3FF-E487-4BD5-B19B-2A230F7313DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.WebApi.Core", "src\building blocks\ESE.WebApi.Core\ESE.WebApi.Core.csproj", "{9253EA20-541D-462C-A82A-9C629EE5E16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.WebApi.Core", "src\building blocks\ESE.WebApi.Core\ESE.WebApi.Core.csproj", "{9253EA20-541D-462C-A82A-9C629EE5E16F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
