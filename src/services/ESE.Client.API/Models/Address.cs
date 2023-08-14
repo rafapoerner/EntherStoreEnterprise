@@ -1,6 +1,6 @@
 ﻿using ESE.Core.DomainObjects;
 
-namespace ESE.Client.API.Models
+namespace ESE.Clients.API.Models
 {
     public class Address : Entity
     {

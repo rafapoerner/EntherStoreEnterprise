@@ -1,14 +1,14 @@
-﻿using ESE.Catalog.API.Data;
-using ESE.WebApi.Core.Identity;
+﻿using ESE.Clients.API.Data;
 using Microsoft.EntityFrameworkCore;
+using ESE.WebApi.Core.Identity;
 
-namespace ESE.Catalog.API.Configuration
+namespace ESE.Clients.API.Configuration
 {
     public static class ApiConfig
     {
         public static void AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<CatalogContext>(options =>
+            services.AddDbContext<ClientsContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
