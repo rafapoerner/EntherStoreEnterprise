@@ -104,10 +104,9 @@ namespace ESE.Clients.API.Migrations
 
                             b1.Property<string>("Numero")
                                 .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
                                 .HasMaxLength(11)
                                 .HasColumnType("varchar(11)")
-                                .HasColumnName("cpf");
+                                .HasColumnName("Cpf");
 
                             b1.HasKey("ClientId");
 
@@ -124,10 +123,8 @@ namespace ESE.Clients.API.Migrations
 
                             b1.Property<string>("Address")
                                 .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasMaxLength(11)
                                 .HasColumnType("varchar(254)")
-                                .HasColumnName("cpf");
+                                .HasColumnName("Email");
 
                             b1.HasKey("ClientId");
 

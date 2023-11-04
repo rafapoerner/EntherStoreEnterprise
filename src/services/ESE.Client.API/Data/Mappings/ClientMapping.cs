@@ -20,7 +20,7 @@ namespace ESE.Clients.API.Data.Mappings
                 tf.Property(c => c.Numero)
                 .IsRequired()
                 .HasMaxLength(Cpf.CpfMaxLength)
-                .HasColumnName("cpf")
+                .HasColumnName("Cpf")
                 .HasColumnType($"varchar({Cpf.CpfMaxLength})");
             });
 
@@ -28,8 +28,7 @@ namespace ESE.Clients.API.Data.Mappings
             {
                 tf.Property(c => c.Address)
                 .IsRequired()
-                .HasMaxLength(11)
-                .HasColumnName("cpf")
+                .HasColumnName("Email")
                 .HasColumnType($"varchar({Email.AddressMaxLength})");
             });
 

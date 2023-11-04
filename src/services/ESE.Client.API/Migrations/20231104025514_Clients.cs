@@ -17,7 +17,8 @@ namespace ESE.Clients.API.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
+                    Email = table.Column<string>(type: "varchar(254)", nullable: true),
+                    Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     Exclude = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

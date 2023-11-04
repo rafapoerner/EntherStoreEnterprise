@@ -32,7 +32,7 @@ namespace ESE.Clients.API.Data
         }
 
 
-        public async Task<bool> commit()
+        public async Task<bool> Commit()
         {
             return await base.SaveChangesAsync() > 0;
         }

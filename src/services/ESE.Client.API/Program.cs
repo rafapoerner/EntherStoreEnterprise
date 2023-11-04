@@ -23,7 +23,7 @@ builder.Services.AddJwtConfiguration(builder.Configuration);
 
 builder.Services.AddSwaggerConfiguration();
 
-//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 builder.Services.RegisterServices();
 
