@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>@ViewData["Title"] - Enther Enterprise</title>
-    
+
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
     <link href="~/css/ui.css" rel="stylesheet" type="text/css" />
@@ -15,33 +15,33 @@
 <body>
 
 
-        <section class="header-main border-bottom">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-4">        
-                        <a asp-action="Index" asp-controller="Catalog" class="brand-wrap">
-                            <img alt="Enther Store Enterprise" class="logo" src="~/images/logo.png">
-                        </a>   
+    <section class="header-main border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-4">
+                    <a asp-action="Index" asp-controller="Catalog" class="brand-wrap">
+                        <img alt="Enther Store Enterprise" class="logo" src="~/images/logo.png">
+                    </a>
+                </div>
+                <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
+                    <div class="d-flex justify-content-end">
+                        <div style="padding-right: 25px">
+                            <a href="#" class="widget-header">
+                                <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+                                <span class="badge badge-pill badge-danger notify">0</span>
+                            </a>
+                        </div>
+                        <div>
+                            <partial name="_LoginPartial" />
+                        </div>
                     </div>
-                    <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
-                        <div class="d-flex justify-content-end">
-                            <div style="padding-right: 25px">
-                                <a href="#" class="widget-header">
-                                    <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                                    <span class="badge badge-pill badge-danger notify">0</span>
-                                </a>
-                            </div>
-                            <div>
-                                <partial name="_LoginPartial" />
-                            </div>
-                        </div>   
-                    </div>   
-                </div>   
-            </div>   
-        </section>    
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div style="min-height: 625px;">
-            @RenderBody()
+        @RenderBody()
     </div>
 
     <footer class="section-footer border-top">
@@ -83,8 +83,8 @@
                         <a href="#" class="d-block mb-2"><img src="~/images/misc/appstore.png" height="40"></a>
                         <a href="#" class="d-block mb-2"><img src="~/images/misc/playmarket.png" height="40"></a>
                     </aside>
-                </div>   
-            </section>	  
+                </div>
+            </section>
 
             <section class="footer-copyright border-top">
                 <p class="float-left text-muted"> Enther Store Enterprise </p>
@@ -92,7 +92,7 @@
                     <a target="_blank" href="https://www.linkedin.com/in/rafaelpoerner/">Enther Store</a>
                 </p>
             </section>
-        </div>  
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
