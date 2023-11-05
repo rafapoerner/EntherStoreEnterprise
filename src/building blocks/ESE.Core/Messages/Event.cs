@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace ESE.Core.Messages
 {
-    public class Event : Message
+    public class Event : Message, INotification
     {
+        public DateTime TimeStamp { get; private set; }
+
+        public Event()
+        {
+            TimeStamp = DateTime.Now;
+        }
     }
 }

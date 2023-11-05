@@ -1,10 +1,11 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using ESE.Clients.API.Application.Commands;
-using ESE.Clients.API.Data;
-using ESE.Core.Mediator;
+using ESE.Clients.API.Application.Events;
+using ESE.Clients.API.Data.Repository;
 using ESE.Clients.API.Models;
+using ESE.Core.Mediator;
+using ESE.Clients.API.Data;
 
 namespace ESE.Clients.API.Configuration
 {
@@ -15,7 +16,9 @@ namespace ESE.Clients.API.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
 
-            services.AddScoped<IClientRepository, IClientRepository>();
+            services.AddScoped<INotificationHandler<ClientRegistratedEvent>, ClientEventHandler>();
+
+            services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientsContext>();
         }
     }

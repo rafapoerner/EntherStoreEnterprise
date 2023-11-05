@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation.Results;
 
-namespace ESE.Identity.API.Controllers
+namespace ESE.WebApi.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller
     {
-        protected ICollection<string> Erros = new List<string>(); 
+        protected ICollection<string> Erros = new List<string>();
 
         protected ActionResult CustomResponse(object result = null)
         {
@@ -22,7 +23,7 @@ namespace ESE.Identity.API.Controllers
 
         }
 
-        protected ActionResult CustomResponse(ModelStateDictionary modelState) 
+        protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
             var errors = modelState.Values.SelectMany(e => e.Errors);
 
@@ -30,6 +31,16 @@ namespace ESE.Identity.API.Controllers
             {
                 AddProcessingError(error.ErrorMessage);
             }
+            return CustomResponse();
+        }
+
+        protected ActionResult CustomResponse(ValidationResult validationResult)
+        {
+            foreach (var erro in validationResult.Errors)
+            {
+                AddProcessingError(erro.ErrorMessage);
+            }
+
             return CustomResponse();
         }
 
@@ -47,6 +58,5 @@ namespace ESE.Identity.API.Controllers
         {
             Erros.Clear();
         }
-
     }
 }

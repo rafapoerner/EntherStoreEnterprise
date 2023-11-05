@@ -1,6 +1,9 @@
 ﻿using ESE.Catalog.API.Models;
 using ESE.Core.Data;
+using ESE.Core.Messages;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace ESE.Catalog.API.Data
 {
@@ -14,6 +17,9 @@ namespace ESE.Catalog.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
+
             // Esse foreach evita que se, caso haja um esquecimento de algum mapeamento,
             // ele faça com um varchar 100 automaticamente.
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
@@ -24,7 +30,7 @@ namespace ESE.Catalog.API.Data
         }
 
 
-        public async Task<bool> commit()
+        public async Task<bool> Commit()
         {
             return await base.SaveChangesAsync() > 0;
         }

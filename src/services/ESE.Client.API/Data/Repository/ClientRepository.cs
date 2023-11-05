@@ -1,6 +1,7 @@
 ﻿using ESE.Clients.API.Models;
 using ESE.Core.Data;
 using Microsoft.EntityFrameworkCore;
+using ESE.Clients.API.Data;
 
 namespace ESE.Clients.API.Data.Repository
 {

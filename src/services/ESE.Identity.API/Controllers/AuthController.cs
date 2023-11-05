@@ -1,5 +1,5 @@
-﻿using ESE.Identity.API.Extensions;
-using ESE.Identity.API.Models;
+﻿using ESE.Identity.API.Models;
+using ESE.WebApi.Core.Controllers;
 using ESE.WebApi.Core.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
