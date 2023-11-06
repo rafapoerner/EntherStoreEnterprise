@@ -1,4 +1,6 @@
-﻿using ESE.Identity.API.Models;
+﻿using EasyNetQ;
+using ESE.Core.Messages.Integration;
+using ESE.Identity.API.Models;
 using ESE.WebApi.Core.Controllers;
 using ESE.WebApi.Core.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +20,8 @@ namespace ESE.Identity.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+
+        private IBus _bus;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
@@ -46,6 +50,8 @@ namespace ESE.Identity.API.Controllers
 
             if (result.Succeeded)
             {
+                var success = await RegisterClient(userRegister);
+
                 return CustomResponse(await GetJwt(userRegister.Email));
             }
 
@@ -57,13 +63,26 @@ namespace ESE.Identity.API.Controllers
             return CustomResponse();
         }
 
+        private async Task<ResponseMessage> RegisterClient(UserRegister userRegister)
+        {
+            var user = await _userManager.FindByEmailAsync(userRegister.Email);
+
+            var userRegistrated = new UserRegistratedIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
+
+            _bus = RabbitHutch.CreateBus("host=localhost");
+
+            var success = await _bus.Rpc.RequestAsync<UserRegistratedIntegrationEvent, ResponseMessage>(userRegistrated);
+
+            return success;
+        }
+
         [HttpPost("autenticated")]
         public async Task<ActionResult> Login(UserLogin userLogin)
         {
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true); // False pra persistência e true para bloqueio do usuário após 5 tentativas(padrão 5min)
+            var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, false); // False pra persistência e true para bloqueio do usuário após 5 tentativas(padrão 5min)
 
             if (result.Succeeded)
             {
@@ -89,7 +108,7 @@ namespace ESE.Identity.API.Controllers
             var encodeToken = EncodedToken(identityClaims);
 
             return GetResponseToken(encodeToken, user, claims);
-        }  
+        }
 
         private async Task<ClaimsIdentity> GetClaimsUser(ICollection<Claim> claims, IdentityUser user)
         {
@@ -123,7 +142,7 @@ namespace ESE.Identity.API.Controllers
                 Subject = identityClaims,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpirationHours),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            }) ;
+            });
 
             return tokenHandler.WriteToken(token);
         }
@@ -132,13 +151,13 @@ namespace ESE.Identity.API.Controllers
         {
             return new UserResponseLogin
             {
-                AccessToken = encodedToken, 
+                AccessToken = encodedToken,
                 ExpireIn = TimeSpan.FromHours(_appSettings.ExpirationHours).TotalSeconds,
                 UserToken = new UserToken
                 {
                     Id = user.Id,
                     Email = user.Email,
-                    Claims = claims.Select(c => new UserClaim { Value = c.Value, Type = c.Type,})
+                    Claims = claims.Select(c => new UserClaim { Value = c.Value, Type = c.Type, })
                 }
             };
         }

@@ -6,6 +6,7 @@ using ESE.Clients.API.Data.Repository;
 using ESE.Clients.API.Models;
 using ESE.Core.Mediator;
 using ESE.Clients.API.Data;
+using ESE.Clients.API.Services;
 
 namespace ESE.Clients.API.Configuration
 {
@@ -20,6 +21,8 @@ namespace ESE.Clients.API.Configuration
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientsContext>();
+
+            services.AddHostedService<RegisterClientIntegrationHandler>();
         }
     }
 }

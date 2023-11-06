@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="7.6.0" />
+    <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\ESE.Core\ESE.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\ESE.WebApi.Core\ESE.WebApi.Core.csproj" />
   </ItemGroup>
 
