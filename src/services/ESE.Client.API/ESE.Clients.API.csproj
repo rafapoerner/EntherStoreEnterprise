@@ -8,7 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyNetQ" Version="7.6.0" />
 		<PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.6.0" />
 		<PackageReference Include="FluentValidation" Version="11.8.0" />
 		<PackageReference Include="MediatR" Version="7.0.0" />
@@ -36,6 +35,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\building blocks\ESE.Core\ESE.Core.csproj" />
+		<ProjectReference Include="..\..\building blocks\ESE.MessageBus\ESE.MessageBus.csproj" />
 		<ProjectReference Include="..\..\building blocks\ESE.WebApi.Core\ESE.WebApi.Core.csproj" />
 	</ItemGroup>
 

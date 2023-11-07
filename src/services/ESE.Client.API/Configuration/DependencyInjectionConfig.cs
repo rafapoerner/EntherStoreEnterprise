@@ -21,8 +21,6 @@ namespace ESE.Clients.API.Configuration
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientsContext>();
-
-            services.AddHostedService<RegisterClientIntegrationHandler>();
         }
     }
 }
