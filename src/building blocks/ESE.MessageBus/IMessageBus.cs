@@ -1,9 +1,14 @@
-﻿using ESE.Core.Messages.Integration;
+﻿using EasyNetQ;
+using ESE.Core.Messages.Integration;
 
 namespace ESE.MessageBus
 {
     public interface IMessageBus : IDisposable
     {
+        bool IsConnected { get; }
+
+        IAdvancedBus AdvancedBus { get; }   
+
         void Publish<T>(T message) where T : IntegrationEvent;
 
         Task PublishAsync<T>(T message) where T : IntegrationEvent;
@@ -26,8 +31,5 @@ namespace ESE.MessageBus
         Task<IDisposable> RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> respond)
            where TRequest : IntegrationEvent
            where TResponse : ResponseMessage;
-
-
-
     }
 }

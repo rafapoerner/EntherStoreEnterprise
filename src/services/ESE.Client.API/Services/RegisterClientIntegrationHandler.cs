@@ -1,32 +1,45 @@
-﻿using EasyNetQ;
-using ESE.Clients.API.Application.Commands;
+﻿using ESE.Clients.API.Application.Commands;
 using ESE.Core.Mediator;
 using ESE.Core.Messages.Integration;
+using ESE.MessageBus;
 using FluentValidation.Results;
 
 namespace ESE.Clients.API.Services
 {
     public class RegisterClientIntegrationHandler : BackgroundService
     {
-        private IBus _bus;
+        private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegisterClientIntegrationHandler(IServiceProvider serviceProvider)
+        public RegisterClientIntegrationHandler(IServiceProvider serviceProvider, IMessageBus bus)
         {
-          _serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
+            _bus = bus;
         }
+
+        private void SetResponder()
+        {
+            _bus.RespondAsync<UserRegistratedIntegrationEvent, ResponseMessage>(async request =>
+          await RegisterClient(request));
+
+            _bus.AdvancedBus.Connected += OnConnect;
+        }
+
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _bus = RabbitHutch.CreateBus("host=localhost"); ;
-
-            _bus.Rpc.RespondAsync<UserRegistratedIntegrationEvent, ResponseMessage>(async request =>
-            new ResponseMessage(await RegisterClient(request)));
+          
+            SetResponder();
 
             return Task.CompletedTask;
         }
 
-        private async Task<ValidationResult> RegisterClient(UserRegistratedIntegrationEvent message)
+        private void OnConnect(object s, EventArgs e)
+        {
+            SetResponder();
+        }
+
+        private async Task<ResponseMessage> RegisterClient(UserRegistratedIntegrationEvent message)
         {
             var clientCommand = new RegisterClientCommand(message.Id, message.Name, message.Email, message.Cpf);
             ValidationResult success;
@@ -37,7 +50,7 @@ namespace ESE.Clients.API.Services
                 success = await mediator.SendCommand(clientCommand);
             }
 
-            return success;
+            return new ResponseMessage(success);
         }
     }
 }
