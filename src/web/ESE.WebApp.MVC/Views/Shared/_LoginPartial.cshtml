@@ -1,5 +1,6 @@
-﻿@using ESE.WebApp.MVC.Extensions;
-@inject IUser AppUser
+﻿@using ESE.WebApi.Core.User;
+@using ESE.WebApp.MVC.Extensions;
+@inject IAspNetUser AppUser
 
 <ul class="navbar-nav">
     @if (AppUser.IsAuthenticated())

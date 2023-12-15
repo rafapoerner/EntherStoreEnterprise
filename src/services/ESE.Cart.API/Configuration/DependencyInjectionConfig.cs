@@ -1,4 +1,6 @@
-﻿using ESE.Cart.API.Model;
+﻿using ESE.Cart.API.Data;
+using ESE.Cart.API.Model;
+using ESE.WebApi.Core.User;
 
 namespace ESE.Clients.API.Configuration
 {
@@ -6,7 +8,9 @@ namespace ESE.Clients.API.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<CartClient>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+            services.AddScoped<CartContext>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ESE.WebApp.MVC.Extensions;
+﻿using ESE.WebApi.Core.User;
+using ESE.WebApp.MVC.Extensions;
 using ESE.WebApp.MVC.Services;
 using ESE.WebApp.MVC.Services.Handlers;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -36,7 +37,7 @@ namespace ESE.Identity.API.Configuration
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
         }
     }
 
