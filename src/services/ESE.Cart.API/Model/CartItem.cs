@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System.Text.Json.Serialization;
 
 namespace ESE.Cart.API.Model
 {
@@ -18,6 +19,7 @@ namespace ESE.Cart.API.Model
 
         public Guid CartId { get; set; }
 
+        [JsonIgnore]
         public CartClient CartClient { get; set; }
 
 
@@ -36,14 +38,19 @@ namespace ESE.Cart.API.Model
             Quantidade += unities;
         }
 
-        internal bool IsValid()
+        internal void UpdateUnities(int unities)
         {
-            return new ItemOrderValidation().Validate(this).IsValid;
+            Quantidade = unities;
         }
 
-        public class ItemOrderValidation : AbstractValidator<CartItem>
+        internal bool IsValid()
         {
-            public ItemOrderValidation()
+            return new ItemCartValidation().Validate(this).IsValid;
+        }
+
+        public class ItemCartValidation : AbstractValidator<CartItem>
+        {
+            public ItemCartValidation()
             {
                 RuleFor(c => c.ProductId)
                     .NotEqual(Guid.Empty)
@@ -55,15 +62,15 @@ namespace ESE.Cart.API.Model
 
                 RuleFor(c => c.Quantidade)
                     .GreaterThan(0)
-                    .WithMessage("A quantidade mínima de um item é 1");
+                    .WithMessage(item => $"A quantidade mínima de um {item.Name} é 1");
 
                 RuleFor(c => c.Quantidade)
-                    .LessThan(CartClient.MAX_QUANTITY_ITEM)
-                    .WithMessage($"A quantidade máxima de um item é {CartClient.MAX_QUANTITY_ITEM}");
+                    .LessThanOrEqualTo(CartClient.MAX_QUANTITY_ITEM)
+                    .WithMessage(item => $"A quantidade máxima de um {item.Name} é {CartClient.MAX_QUANTITY_ITEM}");
 
                 RuleFor(c => c.Price)
                     .GreaterThan(0)
-                    .WithMessage("O valor do item precisa ser maior que 0");
+                    .WithMessage(item => $"O valor do {item.Name} precisa ser maior que 0");
             }
         }
     }

@@ -29,6 +29,8 @@ namespace ESE.Cart.API.Data
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
                 property.SetColumnType("varchar(100)");
 
+            modelBuilder.Ignore<ValidationResult>();
+
             modelBuilder.Entity<CartClient>()
                 .HasIndex(c => c.ClientId)
                 .HasDatabaseName("IDX_Client");

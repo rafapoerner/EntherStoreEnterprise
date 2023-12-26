@@ -37,9 +37,10 @@ namespace ESE.Identity.API.Controllers
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(UserRegister userRegister)
         {
-            //return new StatusCodeResult(500);
-
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return CustomResponse(ModelState);
+            }
 
             var user = new IdentityUser
             {
@@ -52,15 +53,27 @@ namespace ESE.Identity.API.Controllers
 
             if (result.Succeeded)
             {
-                var clientResult = await RegisterClient(userRegister);
-
-                if (!clientResult.ValidationResult.IsValid)
+                try
                 {
-                    await _userManager.DeleteAsync(user);
-                    return CustomResponse(clientResult.ValidationResult);
-                }
+                    var clientResult = await RegisterClient(userRegister);
 
-                return CustomResponse(await GetJwt(userRegister.Email));
+                    if (!clientResult.ValidationResult.IsValid)
+                    {
+                        await _userManager.DeleteAsync(user);
+                        return CustomResponse(clientResult.ValidationResult);
+                    }
+
+                    return CustomResponse(await GetJwt(userRegister.Email));
+                }
+                catch (Exception ex)
+                {
+                    // Trate a exceção de maneira apropriada (log, retornar uma resposta específica, etc.)
+                    // Aqui você pode incluir um log, por exemplo:
+                    CustomResponse("Erro ao registrar cliente após o registro do usuário.");
+
+                    // Retorne uma resposta de erro genérica ou específica, dependendo do seu caso.
+                    return CustomResponse("Erro ao registrar o cliente.");
+                }
             }
 
             foreach (var error in result.Errors)
@@ -70,6 +83,7 @@ namespace ESE.Identity.API.Controllers
 
             return CustomResponse();
         }
+
 
         [HttpPost("autenticated")]
         public async Task<ActionResult> Login(UserLogin userLogin)
@@ -166,11 +180,11 @@ namespace ESE.Identity.API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(userRegister.Email);
 
-            var userRegistrated = new UserRegistratedIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
+            var userRegistered = new UserRegistratedIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
 
             try
             {
-                return await _bus.RequestAsync<UserRegistratedIntegrationEvent, ResponseMessage>(userRegistrated);
+                return await _bus.RequestAsync<UserRegistratedIntegrationEvent, ResponseMessage>(userRegistered);
             }
             catch
             {

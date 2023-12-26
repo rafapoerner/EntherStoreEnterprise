@@ -13,34 +13,35 @@ namespace ESE.Identity.API.Configuration
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
+            #region HttpServices
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAutenticatedService, AutenticatedService>();
-
-            services.AddHttpClient<ICatalogService, CatalogService>()
-                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                    //.AddTransientHttpErrorPolicy(
-                    // p => p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)));
+            services.AddHttpClient<IAutenticatedService, AutenticatedService>()
                     .AddPolicyHandler(PollyExtensions.WaitAndRetryPolicy())
                     .AddTransientHttpErrorPolicy(
                         p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            //services.AddHttpClient("Refit", options =>
-            //{
-            //    options.BaseAddress = new Uri(configuration.GetSection("CatalogUrl").Value);
-            //})
-            //.AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-            //.AddTypedClient(Refit.RestService.For<ICatalogServiceRefit>); 
+            services.AddHttpClient<ICatalogService, CatalogService>()
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                    .AddPolicyHandler(PollyExtensions.WaitAndRetryPolicy())
+                    .AddTransientHttpErrorPolicy(
+                        p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient<ICartService, CartService>()
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                    .AddPolicyHandler(PollyExtensions.WaitAndRetryPolicy())
+                    .AddTransientHttpErrorPolicy(
+                        p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+            #endregion
 
-            services.AddScoped<IAspNetUser, AspNetUser>();
         }
     }
 
+    #region PollyExtensions
     public class PollyExtensions
     {
         public static AsyncRetryPolicy<HttpResponseMessage> WaitAndRetryPolicy()
@@ -62,4 +63,5 @@ namespace ESE.Identity.API.Configuration
             return retry;
         }
     }
+    #endregion
 }

@@ -40,7 +40,7 @@ namespace ESE.WebApp.MVC.Controllers
             // Realizar Registro na app
             await ConnectLogin(response);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
 
         }
 
@@ -68,7 +68,7 @@ namespace ESE.WebApp.MVC.Controllers
             // Realizar Login na app
             await ConnectLogin(response);
 
-            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Catalog");
 
             return LocalRedirect(returnUrl);
         }
@@ -78,7 +78,7 @@ namespace ESE.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
         }
 
         private async Task ConnectLogin(UserResponseLogin response)

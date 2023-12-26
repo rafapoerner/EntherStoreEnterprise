@@ -20,5 +20,16 @@ namespace ESE.WebApp.MVC.Controllers
             return false;
 
         }
+
+        protected void AddErrorValidate(string message)
+        {
+            ModelState.AddModelError(message, string.Empty);
+        }
+
+        protected bool OperationValid()
+        {
+            return ModelState.ErrorCount == 0;
+        }
+
     }
 }

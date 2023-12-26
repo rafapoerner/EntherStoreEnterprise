@@ -6,17 +6,7 @@ namespace ESE.WebApp.MVC.Extensions
 {
     public static class RazorHelpers
     {
-        public static string MessageStock(this RazorPage page, int quantity)
-        {
-            return quantity > 0 ? $"Apenas {quantity} em estoque!" : "Poduto Esgotado!";
-        }
-
-        public static string CurrencyFormat(this RazorPage page, decimal price)
-        {
-            return price > 0 ? string.Format(Thread.CurrentThread.CurrentCulture, "{0:C}", price) : "Gratuito";
-        }
-
-        public static string HashMailForGravatar(this RazorPage page, string email)
+        public static string HashEmailForGravatar(this RazorPage page, string email)
         {
             var md5Hasher = MD5.Create();
             var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(email));
@@ -27,5 +17,77 @@ namespace ESE.WebApp.MVC.Extensions
             }
             return sBuilder.ToString();
         }
+
+        public static string FormatMoney(this RazorPage page, decimal valor)
+        {
+            return FormatMoney(valor);
+        }
+
+        private static string FormatMoney(decimal valor)
+        {
+            return string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:C}", valor);
+        }
+
+        public static string StockMessage(this RazorPage page, int quantidade)
+        {
+            return quantidade > 0 ? $"Only {quantidade} at stock!" : "No stock!";
+        }
+
+        public static string UnityByProduct(this RazorPage page, int unidades)
+        {
+            return unidades > 1 ? $"{unidades} units" : $"{unidades} unit";
+        }
+
+        public static string SelectOptionsByQuantity(this RazorPage page, int quantidade, int valorSelecionado = 0)
+        {
+            var sb = new StringBuilder();
+            for (var i = 1; i <= quantidade; i++)
+            {
+                var selected = "";
+                if (i == valorSelecionado) selected = "selected";
+                sb.Append($"<option {selected} value='{i}'>{i}</option>");
+            }
+
+            return sb.ToString();
+        }
+
+        public static string UnitByProductAmount(this RazorPage page, int unidades, decimal valor)
+        {
+            return $"{unidades}x {FormatMoney(valor)} = Total: {FormatMoney(valor * unidades)}";
+        }
+
+        public static string ShowStatus(this RazorPage page, int status)
+        {
+            var statusMensagem = "";
+            var statusClasse = "";
+
+            switch (status)
+            {
+                case 1:
+                    statusClasse = "info";
+                    statusMensagem = "Processing";
+                    break;
+                case 2:
+                    statusClasse = "primary";
+                    statusMensagem = "Approved";
+                    break;
+                case 3:
+                    statusClasse = "danger";
+                    statusMensagem = "Refused";
+                    break;
+                case 4:
+                    statusClasse = "success";
+                    statusMensagem = "Delivered";
+                    break;
+                case 5:
+                    statusClasse = "warning";
+                    statusMensagem = "Canceled";
+                    break;
+
+            }
+
+            return $"<span class='badge badge-{statusClasse}'>{statusMensagem}</span>";
+        }
     }
 }
+

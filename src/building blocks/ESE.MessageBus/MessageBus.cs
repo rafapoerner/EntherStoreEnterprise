@@ -1,5 +1,4 @@
 ﻿using EasyNetQ;
-using ESE.Core.Messages;
 using ESE.Core.Messages.Integration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
@@ -20,13 +19,13 @@ namespace ESE.MessageBus
         }
 
         public bool IsConnected => _bus?.Advanced.IsConnected ?? false;
-
         public IAdvancedBus AdvancedBus => _bus?.Advanced;
+
 
         public void Publish<T>(T message) where T : IntegrationEvent
         {
             TryConnect();
-            _bus.PubSub.Publish(message);
+            _bus.PubSub.PublishAsync(message);
         }
 
         public async Task PublishAsync<T>(T message) where T : IntegrationEvent
@@ -55,7 +54,7 @@ namespace ESE.MessageBus
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : IntegrationEvent where TResponse : ResponseMessage
+         where TRequest : IntegrationEvent where TResponse : ResponseMessage
         {
             TryConnect();
             return await _bus.Rpc.RequestAsync<TRequest, TResponse>(request);

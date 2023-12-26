@@ -38,6 +38,7 @@ namespace ESE.WebApi.Core.Identity
                     ValidAudience = appSettings.ValidOn,
                     ValidIssuer = appSettings.Issuer,
                 };
+                bearerOptions.MapInboundClaims = false;
             });
         }
 

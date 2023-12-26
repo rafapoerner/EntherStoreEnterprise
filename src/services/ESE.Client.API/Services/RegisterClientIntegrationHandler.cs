@@ -20,7 +20,7 @@ namespace ESE.Clients.API.Services
         private void SetResponder()
         {
             _bus.RespondAsync<UserRegistratedIntegrationEvent, ResponseMessage>(async request =>
-          await RegisterClient(request));
+                 await RegisterClient(request));
 
             _bus.AdvancedBus.Connected += OnConnect;
         }
