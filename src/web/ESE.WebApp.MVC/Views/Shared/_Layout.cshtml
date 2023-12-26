@@ -15,22 +15,16 @@
 <body>
 
 
-    <section class="header-main border-bottom">
+    <section class="section-header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-4">
                     <a asp-action="Index" asp-controller="Catalog" class="brand-wrap">
-                        <img alt="Enther Store Enterprise" class="logo" src="~/images/logoESE.png">
+                        <img alt="Enther Store Enterprise" class="logo img-fluid" src="~/images/logoESE.png">
                     </a>
                 </div>
                 <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
-                    <div class="d-flex justify-content-end">
-                        <div style="padding-right: 25px">
-                            <a href="#" class="widget-header">
-                                <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                                <span class="badge badge-pill badge-danger notify">0</span>
-                            </a>
-                        </div>
+                    <div class="d-flex justify-content-end mt-3">
                         <div>
                             <partial name="_LoginPartial" />
                         </div>
@@ -39,6 +33,7 @@
             </div>
         </div>
     </section>
+
 
     <div style="min-height: 625px;">
         @RenderBody()
@@ -86,7 +81,7 @@
                         <a href="#" class="d-block mb-2"><img src="~/images/misc/playmarket.png" height="40"></a>
                     </aside>
                 </div>
-               
+
             </section>
 
         </div>

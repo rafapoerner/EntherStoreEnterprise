@@ -30,12 +30,12 @@ namespace ESE.WebApp.MVC.Extensions
 
         public static string StockMessage(this RazorPage page, int quantidade)
         {
-            return quantidade > 0 ? $"Only {quantidade} at stock!" : "No stock!";
+            return quantidade > 0 ? $"Only {quantidade} at stock!" : "Sem estoque!";
         }
 
         public static string UnityByProduct(this RazorPage page, int unidades)
         {
-            return unidades > 1 ? $"{unidades} units" : $"{unidades} unit";
+            return unidades > 1 ? $"{unidades} unidades" : $"{unidades} unidade";
         }
 
         public static string SelectOptionsByQuantity(this RazorPage page, int quantidade, int valorSelecionado = 0)
@@ -65,23 +65,23 @@ namespace ESE.WebApp.MVC.Extensions
             {
                 case 1:
                     statusClasse = "info";
-                    statusMensagem = "Processing";
+                    statusMensagem = "Processando";
                     break;
                 case 2:
                     statusClasse = "primary";
-                    statusMensagem = "Approved";
+                    statusMensagem = "Approvado";
                     break;
                 case 3:
                     statusClasse = "danger";
-                    statusMensagem = "Refused";
+                    statusMensagem = "Negado";
                     break;
                 case 4:
                     statusClasse = "success";
-                    statusMensagem = "Delivered";
+                    statusMensagem = "Entrega";
                     break;
                 case 5:
                     statusClasse = "warning";
-                    statusMensagem = "Canceled";
+                    statusMensagem = "Cancelado";
                     break;
 
             }
