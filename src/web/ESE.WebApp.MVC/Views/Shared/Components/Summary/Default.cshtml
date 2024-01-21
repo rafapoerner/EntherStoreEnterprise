@@ -1,11 +1,11 @@
-﻿@if(ViewData.ModelState.ErrorCount > 0)
+﻿@if (ViewData.ModelState.ErrorCount > 0)
 {
-    <div style="padding-top: 15px" ></div>
+    <div style="padding-top: 15px"></div>
 
     <div class="alert alert-danger">
         <div class="d-flex justify-content-end">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+            <button type="button" class="btn-close" disabled aria-label="Close"></button>
+        </div>
         <h3 id="msgRetorno" style="padding-top: 20px">Opah! Algo deu errado! :(</h3>
         <div style="padding-top: 20px" asp-validation-summary="All" class="text-danger"></div>
     </div>
